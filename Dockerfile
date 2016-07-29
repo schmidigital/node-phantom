@@ -16,11 +16,12 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends \
         ca-certificates \
         curl \
         git \
-        libssl-dev \
+        #libssl-dev \
         python \
         rsync \
         software-properties-common \
         wget \
+        fontconfig \
     && rm -rf /var/lib/apt/lists/*
 
 ENV NVM_DIR /usr/local/nvm
@@ -36,4 +37,6 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.20.0/install.sh | b
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
-RUN apt-get install -y libfreetype6 libfontconfig
+RUN npm i -g phantomjs-prebuilt
+RUN mkdir -p /usr/local/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin/
+RUN ln -s /usr/local/nvm/versions/v$NODE_VERSION/bin/phantomjs /usr/local/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
