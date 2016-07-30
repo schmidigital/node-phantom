@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y -q --no-install-recommends \
         ca-certificates \
         curl \
         git \
-        #libssl-dev \
+        libssl-dev \
         python \
         rsync \
         software-properties-common \
@@ -37,6 +37,8 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.20.0/install.sh | b
 ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH      $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
-RUN npm i -g phantomjs-prebuilt
+RUN npm i -g phantomjs-prebuilt mocha sails http-server rimraf
 RUN mkdir -p /usr/local/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin/
 RUN ln -s /usr/local/nvm/versions/v$NODE_VERSION/bin/phantomjs /usr/local/lib/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+
+EXPOSE 1337
